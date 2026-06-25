@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fmod-studio-mcp"
+version = "0.1.0"
+description = "MCP server that drives FMOD Studio live via its scripting terminal (TCP 3663) — full Scripting API access for AI agents."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{ name = "Emir Yaman Sivrikaya" }]
+keywords = ["fmod", "fmod-studio", "mcp", "model-context-protocol", "game-audio", "audio"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Sound/Audio",
+]
+dependencies = ["mcp>=1.0.0"]
+
+[project.urls]
+Repository = "https://github.com/EYamanS/fmod-studio-mcp"
+Issues = "https://github.com/EYamanS/fmod-studio-mcp/issues"
+
+[project.scripts]
+fmod-studio-mcp = "fmod_studio_mcp:run_server"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["fmod_studio_mcp*"]

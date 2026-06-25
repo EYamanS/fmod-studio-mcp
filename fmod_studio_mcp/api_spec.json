@@ -1,0 +1,2472 @@
+[
+  {
+    "module": "globals",
+    "owner": "console",
+    "member": "log",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "console",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Logs a message. Alias for studio.system.print .",
+    "signature": "console.log(msg)"
+  },
+  {
+    "module": "globals",
+    "owner": "console",
+    "member": "warn",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "console",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Logs a warning. Alias for studio.system.warn .",
+    "signature": "console.warn(msg)"
+  },
+  {
+    "module": "globals",
+    "owner": "console",
+    "member": "error",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "console",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Logs an error. Alias for studio.system.error .",
+    "signature": "console.error(msg)"
+  },
+  {
+    "module": "globals",
+    "owner": "console",
+    "member": "dump",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "console",
+    "params": [
+      {
+        "name": "object",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Logs all members of object.",
+    "signature": "console.dump(object)"
+  },
+  {
+    "module": "globals",
+    "owner": "(global)",
+    "member": "alert",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "global",
+    "receiver": "alert",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Logs a message in a popup dialog (blocking). Alias for studio.system.message .",
+    "signature": "alert(msg)"
+  },
+  {
+    "module": "globals",
+    "owner": "studio",
+    "member": "os.platform",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio",
+    "params": [],
+    "returns": "Returns either \"mac\" for Mac OS X or \"win\" for all Windows versions.",
+    "description": "The current operating system of the computer. Returns either \"mac\" for Mac OS X or \"win\" for all Windows versions.",
+    "signature": "studio.os.platform"
+  },
+  {
+    "module": "globals",
+    "owner": "studio",
+    "member": "application.filePath",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio",
+    "params": [],
+    "returns": "",
+    "description": "The absolute file path of the FMOD Studio process's executable.",
+    "signature": "studio.application.filePath"
+  },
+  {
+    "module": "globals",
+    "owner": "studio",
+    "member": "version",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio",
+    "params": [],
+    "returns": "",
+    "description": "An object containing version information for the Studio tool:",
+    "signature": "{ productVersion : [ number ], majorVersion : [ number ], minorVersion : [ number ], changelist : [ number ], }"
+  },
+  {
+    "module": "menu",
+    "owner": "menu",
+    "member": "addMenuItem",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.menu",
+    "params": [
+      {
+        "name": "required",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns true if the operation succeeds, or false otherwise.",
+    "description": "Registers a menu item under the \"Scripts\" menu, based on the description object:",
+    "signature": "{ name : [ string ] ( required ), execute : [ function ] ( required ), keySequence : [ string ], isEnabled : [ bool ] ( dynamic ), isChecked : [ bool ] ( dynamic ), subMenuItems : [ array ( description )] ( dynamic ), }"
+  },
+  {
+    "module": "menu",
+    "owner": "menu",
+    "member": "removeMenuItem",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.menu",
+    "params": [
+      {
+        "name": "description",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns true if the operation succeeds, or false otherwise.",
+    "description": "Removes a menu item that was added with menu.addMenuItem() . The description argument must match a description that the menu item was added with.",
+    "signature": "menu.removeMenuItem(description)"
+  },
+  {
+    "module": "menu",
+    "owner": "menu",
+    "member": "menuItems",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.menu",
+    "params": [],
+    "returns": "Returns an Array of menu item descriptions added with menu.",
+    "description": "Returns an Array of menu item descriptions added with menu.addMenuItem() . The order of the Array matches the order in which the items were added.",
+    "signature": "menu.menuItems()"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "build",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "Returns true if the operation succeeds, or false otherwise.",
+    "description": "Builds all the banks to all the platforms listed in the build tab of the preferences dialog.",
+    "signature": "project . build (); project . build ( build_options )"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "create",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [
+      {
+        "name": "entityName",
+        "optional": false,
+        "doc": "The name of the entity to create."
+      }
+    ],
+    "returns": "Returns a new instance of a ManagedObject of the given entity name.",
+    "description": "Returns a new instance of a ManagedObject of the given entity name.",
+    "signature": "project . create ( entityName )"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "deleteObject",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [
+      {
+        "name": "managedObject",
+        "optional": false,
+        "doc": "The managed object to delete."
+      }
+    ],
+    "returns": "Returns true if the operation succeeds, or false otherwise.",
+    "description": "Deletes the ManagedObject and its references, if any, from the project.",
+    "signature": "project . deleteObject ( managedObject )"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "exportGUIDs",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "Returns true if the operation succeeds, or false otherwise.",
+    "description": "Exports project \"guids.txt\".",
+    "signature": "project . exportGUIDs ()"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "findAvailablePlugins",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "Returns an array of strings that lists all available plugins.",
+    "description": "Returns an array of strings that lists all available plugins.",
+    "signature": "project . findAvailablePlugins ()"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "importAudioFile",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [
+      {
+        "name": "filePath",
+        "optional": false,
+        "doc": "The absolute path to the file's location."
+      }
+    ],
+    "returns": "Returns an model.",
+    "description": "Imports an audio asset into the project.",
+    "signature": "project . importAudioFile ( filePath )"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "lookup",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [
+      {
+        "name": "idOrPath",
+        "optional": false,
+        "doc": "GUID or path of the ManageObject."
+      }
+    ],
+    "returns": "Returns a ManagedObject found by GUID or path.",
+    "description": "Lookup a ManagedObject by path or GUID.",
+    "signature": "project . lookup ( idOrPath )"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "save",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "Returns true if the operation succeeds, or false otherwise.",
+    "description": "Saves the project.",
+    "signature": "project . save ()"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "audioFileImported",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "",
+    "description": "Callback triggered when an audio file has finished being imported.",
+    "signature": "project.audioFileImported"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "audioFileImported.connect",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [
+      {
+        "name": "callback",
+        "optional": false,
+        "doc": "A callback function that will be called when an audio file import has completed."
+      }
+    ],
+    "returns": "",
+    "description": "Sets a function to be called when an audio file is imported, with the signature function(audioFile) .",
+    "signature": "project . audioFileImported . connect ( callback )"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "audioFileImported.disconnect",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [
+      {
+        "name": "connectFunction",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Disconnects the connectFunction once it is no longer needed. It is important to disconnect the connected signals when they are no longer needed, otherwise they can accumulate and cause unexpected behavior.",
+    "signature": "project . audioFileImported . disconnect ( connectFunction )"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "buildEnded",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "",
+    "description": "A callback that will be fired when a build has completed.",
+    "signature": "project.buildEnded"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "buildEnded.connect",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [
+      {
+        "name": "callback",
+        "optional": false,
+        "doc": "A callback function that will be called when the build has ended."
+      }
+    ],
+    "returns": "",
+    "description": "Sets a function to be called after banks are built, with the signature function(success) . The success argument will be false if a build error occurs or the build is cancelled by the user, and true otherwise. For example:",
+    "signature": "project . buildEnded . connect ( callback )"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "buildEnded.disconnect",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "",
+    "description": "Disconnects the connectFunction once it is no longer needed. It is important to disconnect the connected signals when they are no longer needed, otherwise they can accumulate and cause unexpected behavior.",
+    "signature": "function connectToBuildEnd () { alert ( &quot;Build about to end&quot; ); } studio . project . buildEnded . connect ( connectToBuildEnd ); studio . project . buildEnded . disconnect ( connectToBuildEnd );"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "buildStarted",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "",
+    "description": "A callback that will be fired when a build has commenced.",
+    "signature": "project.buildStarted"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "buildStarted.connect",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [
+      {
+        "name": "callback",
+        "optional": false,
+        "doc": "A callback function that will be called when the build has started."
+      }
+    ],
+    "returns": "",
+    "description": "Sets a function to be called before banks are built, with the signature function() . For example:",
+    "signature": "project . buildStarted . connect ( callback )"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "buildStarted.disconnect",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [
+      {
+        "name": "connectFunction",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Disconnects the connectFunction once it is no longer needed. It is important to disconnect the connected signals when they are no longer needed, otherwise they can accumulate and cause unexpected behavior.",
+    "signature": "project . buildStarted . disconnect ( connectFunction )"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "filePath",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "",
+    "description": "The absolute path to the project's \".fspro` file on disk.",
+    "signature": "project.filePath"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "distanceRolloffType",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "",
+    "description": "An enum corresponding to different distance attenuation roll-off types available to spatial effects.",
+    "signature": "distanceRolloffType : { LinearSquared : 0 , Linear : 1 , Inverse : 2 , InverseTapered : 3 , Custom : 4 , }"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "parameterType",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "",
+    "description": "An enum corresponding to different model.Parameter types available.",
+    "signature": "parameterType : { Invalid : - 1 , User : 0 , UserDiscrete : 1 , UserEnumeration : 2 , Distance : 3 , Direction : 4 , Elevation : 5 , EventConeAngle : 6 , EventOrientation : 7 , Speed : 8 , SpeedAbsolute : 9 , DistanceNormalized : 10 }"
+  },
+  {
+    "module": "project",
+    "owner": "project",
+    "member": "regionLoopMode",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project",
+    "params": [],
+    "returns": "",
+    "description": "An enum corresponding to different loop modes of a loop region.",
+    "signature": "regionLoopMode : { None : 0 , Looping : 1 , Magnet : 2 }"
+  },
+  {
+    "module": "project-entity",
+    "owner": "entity",
+    "member": "isAbstract",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "entity",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "A constant boolean value that is set to true if an object is the base class of another entity type.",
+    "signature": "entity.isAbstract"
+  },
+  {
+    "module": "project-entity",
+    "owner": "entity",
+    "member": "isGlobal",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "entity",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "A constant boolean value that is set to true if an entity exists globally, rather than on a per project basis.",
+    "signature": "entity.isGlobal"
+  },
+  {
+    "module": "project-entity",
+    "owner": "entity",
+    "member": "isSingleton",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "entity",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "A constant boolean value that is set to true if only a single ManagedObject instance of the entity can exist at any given time.",
+    "signature": "entity.isSingleton"
+  },
+  {
+    "module": "project-entity",
+    "owner": "entity",
+    "member": "properties",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "entity",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns an array of property description objects containing named properties that represent each ManagedObject property available for this entity.",
+    "description": "Returns an array of property description objects containing named properties that represent each ManagedObject property available for this entity.",
+    "signature": "entity.properties"
+  },
+  {
+    "module": "project-entity",
+    "owner": "entity",
+    "member": "superEntities",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "entity",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "An array of strings representing the entity type inherited by this entity.",
+    "signature": "entity.superEntities"
+  },
+  {
+    "module": "project-entity",
+    "owner": "entity",
+    "member": "document",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "entity",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns a string describing the entity, including its properties and relationships.",
+    "description": "Returns a string describing the entity, including its properties and relationships.",
+    "signature": "entity . document ()"
+  },
+  {
+    "module": "project-entity",
+    "owner": "entity",
+    "member": "findInstances",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "entity",
+    "receiver": null,
+    "params": [
+      {
+        "name": "options",
+        "optional": true,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns an array of ManagedObject instances of a given entity type.",
+    "description": "Returns an array of ManagedObject instances of a given entity type.",
+    "signature": "entity . findInstances ( [ options ] )"
+  },
+  {
+    "module": "project-entity",
+    "owner": "entity",
+    "member": "singletonInstance",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "entity",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the singleton ManagedObject instance of a particular entity type.",
+    "description": "Returns the singleton ManagedObject instance of a particular entity type.",
+    "signature": "entity . singletonInstance ()"
+  },
+  {
+    "module": "project-entity",
+    "owner": "entity",
+    "member": "relationships",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "entity",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns an array of relationship description objects, containing named relationships that represents each ManagedObject relationship available for this entity.",
+    "description": "Returns an array of relationship description objects, containing named relationships that represents each ManagedObject relationship available for this entity.",
+    "signature": "entity.relationships"
+  },
+  {
+    "module": "project-managedobject",
+    "owner": "ManagedObject",
+    "member": "entity",
+    "kind": "property",
+    "immutable": true,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "A string representing the object's project.Entity type.",
+    "signature": "ManagedObject.entity"
+  },
+  {
+    "module": "project-managedobject",
+    "owner": "ManagedObject",
+    "member": "id",
+    "kind": "property",
+    "immutable": true,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "The object's unique ID.",
+    "signature": "ManagedObject.id"
+  },
+  {
+    "module": "project-managedobject",
+    "owner": "ManagedObject",
+    "member": "isValid",
+    "kind": "property",
+    "immutable": true,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns whether an object is in a valid state.",
+    "description": "Returns whether an object is in a valid state.",
+    "signature": "ManagedObject.isValid"
+  },
+  {
+    "module": "project-managedobject",
+    "owner": "ManagedObject",
+    "member": "properties",
+    "kind": "property",
+    "immutable": true,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns a ManagedPropertyMap .",
+    "description": "Provides access to an object's properties.",
+    "signature": "ManagedObject.properties"
+  },
+  {
+    "module": "project-managedobject",
+    "owner": "ManagedObject",
+    "member": "relationships",
+    "kind": "property",
+    "immutable": true,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns a ManagedRelationshipMap .",
+    "description": "Provides access to an object's relationships.",
+    "signature": "ManagedObject.relationships"
+  },
+  {
+    "module": "project-managedobject",
+    "owner": "ManagedObject",
+    "member": "document",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns a string describing this ManagedObject 's entity type.",
+    "description": "Returns a string describing this ManagedObject 's entity type.",
+    "signature": "ManagedObject . document ()"
+  },
+  {
+    "module": "project-managedobject",
+    "owner": "ManagedObject",
+    "member": "dump",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "Logs all members.",
+    "signature": "ManagedObject . dump ()"
+  },
+  {
+    "module": "project-managedobject",
+    "owner": "ManagedObject",
+    "member": "isOfExactType",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "entityName",
+        "optional": false,
+        "doc": "The name of the project.Entity type to compare against."
+      }
+    ],
+    "returns": "Returns true if the object type matches the provided entity name.",
+    "description": "Returns true if the object type matches the provided entity name.",
+    "signature": "ManagedObject . isOfExactType ( entityName )"
+  },
+  {
+    "module": "project-managedobject",
+    "owner": "ManagedObject",
+    "member": "isOfType",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "entityName",
+        "optional": false,
+        "doc": "The name of the project.Entity type to compare against."
+      }
+    ],
+    "returns": "Returns true if the object has an entity that matches the entity name, or is of a derived type.",
+    "description": "Returns true if the object has an entity that matches the entity name, or is of a derived type.",
+    "signature": "ManagedObject . isOfType ( entityName )"
+  },
+  {
+    "module": "project-model-asset",
+    "owner": "Asset",
+    "member": "getAbsoluteAssetPath",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the absolute path of the file the asset refers to.",
+    "description": "Retrieves the absolute path of the file the asset refers to.",
+    "signature": "Asset . getAbsoluteAssetPath ()"
+  },
+  {
+    "module": "project-model-asset",
+    "owner": "Asset",
+    "member": "getAssetPath",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the path of the file the asset refers to, relative to the project assets directory.",
+    "description": "Retrieves the path of the file the asset refers to, relative to the project assets directory.",
+    "signature": "Asset . getAssetPath ()"
+  },
+  {
+    "module": "project-model-asset",
+    "owner": "Asset",
+    "member": "setAssetPath",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "filePath",
+        "optional": false,
+        "doc": "The path to move the asset to."
+      }
+    ],
+    "returns": "Returns true if the operation succeeds, or false otherwise.",
+    "description": "Sets the path of the file the asset refers to, relative to the project assets directory.",
+    "signature": "Asset . setAssetPath ( filePath )"
+  },
+  {
+    "module": "project-model-automatableobject",
+    "owner": "AutomatableObject",
+    "member": "addAutomator",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "propertyName",
+        "optional": false,
+        "doc": "The name of the automator to add."
+      }
+    ],
+    "returns": "Returns the automator ManagedObject .",
+    "description": "Creates a model.Automator for a given property of the automatable object.",
+    "signature": "AutomatableObject . addAutomator ( propertyName )"
+  },
+  {
+    "module": "project-model-automatableobject",
+    "owner": "AutomatableObject",
+    "member": "addModulator",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "modulatorType",
+        "optional": false,
+        "doc": "Type of modulator to add. Must be RandomizerModulator , ADSRModulator , SidechainModulator or AutopitchModulator ."
+      },
+      {
+        "name": "propertyName",
+        "optional": false,
+        "doc": "The name of the property to modulate with the newly create modulator."
+      }
+    ],
+    "returns": "Returns the modulator ManagedObject .",
+    "description": "Creates a model.Modulator for a given property of the automatable object.",
+    "signature": "AutomatableObject . addModulator ( modulatorType , propertyName )"
+  },
+  {
+    "module": "project-model-automationcurve",
+    "owner": "AutomationCurve",
+    "member": "addAutomationPoint",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "position",
+        "optional": false,
+        "doc": "The timeline position to place the automation point. Must be within the range of the curve's parameter."
+      },
+      {
+        "name": "value",
+        "optional": false,
+        "doc": "The value to assign the automation point. Must be within the value range of the automated property."
+      }
+    ],
+    "returns": "Returns the automation point ManagedObject .",
+    "description": "Creates an automation point at the given position.",
+    "signature": "AutomationCurve . addAutomationPoint ( position , value )"
+  },
+  {
+    "module": "project-model-automator",
+    "owner": "Automator",
+    "member": "addAutomationCurve",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "parameter",
+        "optional": false,
+        "doc": "Either a model.GameParameter or the model.Timeline of the event containing the object being automated."
+      }
+    ],
+    "returns": "Returns the automation curve ManagedObject .",
+    "description": "Creates a model.AutomationCurve on the parameter specified.",
+    "signature": "Automator . addAutomationCurve ( parameter )"
+  },
+  {
+    "module": "project-model-bank",
+    "owner": "Bank",
+    "member": "getPath",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the bank's path as a string .",
+    "description": "Retrieves the bank's unique path identifier.",
+    "signature": "Bank . getPath ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "addGameParameter",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "parameterDefinition",
+        "optional": false,
+        "doc": "Either a model.ParameterPreset , a model.GameParameter , or a parameterDefinition object."
+      }
+    ],
+    "returns": "Returns the game parameter ManagedObject .",
+    "description": "Adds a game parameter to the event.",
+    "signature": "Event . addGameParameter ( parameterDefinition )"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "addGroupTrack",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "name",
+        "optional": false,
+        "doc": "The string value to assign the audio track when it is created."
+      }
+    ],
+    "returns": "Returns the newly created model.",
+    "description": "Adds an audio track with the given name to the event.",
+    "signature": "Event . addGroupTrack ( name )"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "addMarkerTrack",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the newly created model.",
+    "description": "Adds a marker track to the event.",
+    "signature": "Event . addMarkerTrack ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "addReturnTrack",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "name",
+        "optional": false,
+        "doc": "The string value to assign the return track when it is created."
+      }
+    ],
+    "returns": "Returns the newly created return track ManagedObject .",
+    "description": "Adds a return track with the given name to the event.",
+    "signature": "Event . addReturnTrack ( name )"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "get3DAttributes",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "Retrieves the 3D attributes of an event.",
+    "signature": "Event . get3DAttributes ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "getCursorPosition",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "parameter",
+        "optional": false,
+        "doc": "The parameter to get to cursor postion of. Must be the event 's model.Timeline or one of the event's model.GameParameter s."
+      }
+    ],
+    "returns": "Returns the cursor position as a number .",
+    "description": "Retrieves the cursor position.",
+    "signature": "Event . getCursorPosition ( parameter )"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "getParameterPresets",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns an array of all model.",
+    "description": "Retrieves an array of preset parameters referenced by the event .",
+    "signature": "Event . getParameterPresets ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "getPath",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the event's path as a string .",
+    "description": "Retrieves the event 's unique path identifier.",
+    "signature": "Event . getPath ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "getPlayheadPosition",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "parameter",
+        "optional": false,
+        "doc": "The model.Timeline or model.GameParameter to retrieve the playback position of."
+      }
+    ],
+    "returns": "Returns the playback position of a model.",
+    "description": "Retrieves the playback position of a given parameter .",
+    "signature": "Event . getPlayheadPosition ( parameter )"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "is3D",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns true if an event is 3D.",
+    "description": "Reports whether an event is 3D .",
+    "signature": "Event . is3D ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "isOneShot",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns true if an event is one-shot.",
+    "description": "Reports whether an event is a one-shot.",
+    "signature": "Event . isOneShot ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "isPaused",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns true if an event instance is paused.",
+    "description": "Reports whether an event instance is paused.",
+    "signature": "Event . isPaused ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "isPlaying",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns true if an event instance is playing.",
+    "description": "Reports whether an event instance is playing.",
+    "signature": "Event . isPlaying ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "isRecording",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns true for profiler sessions with recording enabled.",
+    "description": "Reports whether an event instance is being recorded in a profiler session .",
+    "signature": "Event . isRecording ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "isStopping",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns true if an event instance is stopping.",
+    "description": "Reports whether an event instance is stopping.",
+    "signature": "Event . isStopping ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "keyOff",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "Sends the keyoff command to a currently playing event instance .",
+    "signature": "Event . keyOff ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "returnToStart",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "Moves the playback position to the cursor position if called while the event instance is playing, stopping, or paused, or to the start of the timeline while the event instance is stopped.",
+    "signature": "Event . returnToStart ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "set3DAttributes",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "attributes",
+        "optional": false,
+        "doc": "Object describing the 3D attributes to give to the event."
+      }
+    ],
+    "returns": "",
+    "description": "Sets the 3D attributes of an event instance being auditioned based on a 3D attributes object.",
+    "signature": "Event . set3DAttributes ( attributes )"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "setCursorPosition",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "parameter",
+        "optional": false,
+        "doc": "The parameter to set the cursor postion of. Either a model.Timeline or a model.GameParameter ."
+      },
+      {
+        "name": "position",
+        "optional": false,
+        "doc": "The numerical value to set the cursor postion to."
+      }
+    ],
+    "returns": "",
+    "description": "Sets the cursor position to a number.",
+    "signature": "Event . setCursorPosition ( parameter , position )"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "stopImmediate",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "Stops an event instance immediately, skipping the stopping event state .",
+    "signature": "Event . stopImmediate ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "stopNonImmediate",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "Commands a playing event instance to enter the stopping event state .",
+    "signature": "Event . stopNonImmediate ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "togglePause",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "Toggles the pause state of an event instance .",
+    "signature": "Event . togglePause ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "toggleRecording",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "Toggles the recording state for a profiler session.",
+    "signature": "Event . toggleRecording ()"
+  },
+  {
+    "module": "project-model-event",
+    "owner": "Event",
+    "member": "play",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "Plays the event instance .",
+    "signature": "Event . play ()"
+  },
+  {
+    "module": "project-model-folder",
+    "owner": "Folder",
+    "member": "getItem",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "path",
+        "optional": false,
+        "doc": "Relative path of the item to retrieve."
+      }
+    ],
+    "returns": "Returns the item at the relative path specified.",
+    "description": "Retrieves the item at the relative path specified.",
+    "signature": "Folder . getItem ( path )"
+  },
+  {
+    "module": "project-model-folder",
+    "owner": "MasterAssetFolder",
+    "member": "getAsset",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "path",
+        "optional": false,
+        "doc": "Relative path of the asset to retrieve."
+      }
+    ],
+    "returns": "Returns the model.",
+    "description": "Retrieves the asset at the path specified.",
+    "signature": "MasterAssetFolder . getAsset ( path )"
+  },
+  {
+    "module": "project-model-mixereffect",
+    "owner": "MixerBusEffectChain",
+    "member": "addEffect",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "effectDefinition",
+        "optional": false,
+        "doc": "Either an EffectPreset , a model.MixerEffect that is a preset , or one of the following strings: - ThreeEQEffect - ChannelMixEffect - ChorusEffect - CompressorEffect - ConvolutionReverbEffect - DistortionEffect - DelayEffect - FlangerEffect - GainEffect - LimiterEffect - MultibandEqEffect - PitchShifterEffect - SFXReverbEffect - TransceiverEffect - TremoloEffect - HighpassEffect - HighpassSimpleEffect - LowpassEffect - LowpassSimpleEffect - ParamEqEffect - SpatialiserEffect - ObjectSpatialiserEffect - LoudnessMeter"
+      }
+    ],
+    "returns": "Returns the effect ManagedObject .",
+    "description": "Creates an effect and adds it to the end of the chain.",
+    "signature": "MixerBusEffectChain . addEffect ( effectDefinition )"
+  },
+  {
+    "module": "project-model-mixereffect",
+    "owner": "ConvolutionReverbEffect",
+    "member": "setIRFromFilePath",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "filePath",
+        "optional": false,
+        "doc": "The absolute path to an audio data file."
+      }
+    ],
+    "returns": "",
+    "description": "Sets the impulse response for a convolution reverb effect.",
+    "signature": "ConvolutionReverbEffect . setIRFromFilePath ( filePath )"
+  },
+  {
+    "module": "project-model-mixerstrip",
+    "owner": "MixerBus",
+    "member": "getInputFormat",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the effective input format for a model.",
+    "description": "Retrieves the input format of the bus .",
+    "signature": "MixerBus . getInputFormat ()"
+  },
+  {
+    "module": "project-model-mixerstrip",
+    "owner": "MixerBus",
+    "member": "getOutputFormat",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the effective output format for a model.",
+    "description": "Retrieves the output format of the bus .",
+    "signature": "MixerBus . getOutputFormat ()"
+  },
+  {
+    "module": "project-model-mixerstrip",
+    "owner": "MixerStrip",
+    "member": "getPath",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the model.",
+    "description": "Retrieves the mixer strip's unique path identifier.",
+    "signature": "MixerStrip . getPath ()"
+  },
+  {
+    "module": "project-model-parameter",
+    "owner": "GameParameter",
+    "member": "getCursorPosition",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the cursor position of the global user parameter as a number .",
+    "description": "Retrieves the parameter 's cursor position.",
+    "signature": "GameParameter . getCursorPosition ()"
+  },
+  {
+    "module": "project-model-parameter",
+    "owner": "GameParameter",
+    "member": "setCursorPosition",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "position",
+        "optional": false,
+        "doc": "The numerical position to set the parameter's cursor to."
+      }
+    ],
+    "returns": "",
+    "description": "Sets the cursor position of the global , user , or built-in parameter to a number.",
+    "signature": "GameParameter . setCursorPosition ( position )"
+  },
+  {
+    "module": "project-model-parameter",
+    "owner": "Parameter",
+    "member": "getPlayheadPosition",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "",
+    "description": "Retrieves the playback position of a parameter, within the context of the associated model.Event .",
+    "signature": "Parameter.getPlayheadPosition"
+  },
+  {
+    "module": "project-model-parameter",
+    "owner": "ParameterPreset",
+    "member": "getPath",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the parameter's path as a string .",
+    "description": "Retrieves the preset parameter's unique path identifier.",
+    "signature": "ParameterPreset . getPath ()"
+  },
+  {
+    "module": "project-model-parameter",
+    "owner": "ParameterProxy",
+    "member": "getCursorPosition",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the cursor position as a number , within the context of the associated event .",
+    "description": "Retrieves the preset parameter 's cursor position.",
+    "signature": "ParameterProxy . getCursorPosition ()"
+  },
+  {
+    "module": "project-model-parameter",
+    "owner": "ParameterProxy",
+    "member": "setCursorPosition",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "position",
+        "optional": false,
+        "doc": "The numerical position to set the parameter proxy's cursor to."
+      }
+    ],
+    "returns": "",
+    "description": "Sets the cursor position of the preset parameter to a number.",
+    "signature": "ParameterProxy . setCursorPosition ( position )"
+  },
+  {
+    "module": "project-model-parameter",
+    "owner": "Timeline",
+    "member": "getCursorPosition",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [],
+    "returns": "Returns the cursor position as a number , within the context of the associated event .",
+    "description": "Retrieves the timeline 's cursor position.",
+    "signature": "Timeline . getCursorPosition ()"
+  },
+  {
+    "module": "project-model-parameter",
+    "owner": "Timeline",
+    "member": "setCursorPosition",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "position",
+        "optional": false,
+        "doc": "The numerical position to set the timeline to."
+      }
+    ],
+    "returns": "",
+    "description": "Sets the cursor position of the timeline to a number.",
+    "signature": "Timeline . setCursorPosition ( position )"
+  },
+  {
+    "module": "project-model-sound",
+    "owner": "Sound",
+    "member": "setFadeInCurve",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "length",
+        "optional": false,
+        "doc": "The numerical duration of the new fade-in curve."
+      },
+      {
+        "name": "curveShape",
+        "optional": false,
+        "doc": "The numerical velocity of the curve. A value of 0 creates a linear fade-in, a positive value creates an accelerating fade-in, and a negative negative value creates a decelerating fade-in."
+      }
+    ],
+    "returns": "",
+    "description": "Sets the fade-in curve of the instrument to the specified length and curve shape.",
+    "signature": "Sound . setFadeInCurve ( length , curveShape )"
+  },
+  {
+    "module": "project-model-sound",
+    "owner": "Sound",
+    "member": "setFadeOutCurve",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "length",
+        "optional": false,
+        "doc": "The numerical duration of the new fade-out curve."
+      },
+      {
+        "name": "curveShape",
+        "optional": false,
+        "doc": "The numerical velocity of the curve. A value of 0 creates a linear fade-out, a positive value creates an accelerating fade-out, and a negative negative value creates a decelerating fade-out."
+      }
+    ],
+    "returns": "",
+    "description": "Sets the fade-out curve of the instrument to the specified length and curve shape.",
+    "signature": "Sound . setFadeInCurve ( length , curveShape )"
+  },
+  {
+    "module": "project-model-track",
+    "owner": "AudioTrack",
+    "member": "addAutomationTrack",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "automatableObject",
+        "optional": false,
+        "doc": "Any model.AutomatableObject of the track such as a model.Sound , a model.MixerEffect , or the model.MixerBus of the track itself."
+      },
+      {
+        "name": "propertyName",
+        "optional": false,
+        "doc": "Any valid automatable property of the specified model.AutomatableObject ."
+      }
+    ],
+    "returns": "Returns the automation track ManagedObject .",
+    "description": "Creates an automation track for a given property of an automatable object.",
+    "signature": "AudioTrack . addAutomationTrack ( automatableObject , propertyName )"
+  },
+  {
+    "module": "project-model-track",
+    "owner": "GroupTrack",
+    "member": "addSound",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "parameter",
+        "optional": false,
+        "doc": "The parameter sheet to add the sound to."
+      },
+      {
+        "name": "soundType",
+        "optional": false,
+        "doc": "The type of the model.Sound . Must be model.SingleSound , model.MultiSound , or model.ProgrammerSound ."
+      },
+      {
+        "name": "start",
+        "optional": false,
+        "doc": "The numerical position of the new model.Sound . The value must be within the parameter 's range."
+      },
+      {
+        "name": "length",
+        "optional": false,
+        "doc": "The numerical length of the new model.Sound ."
+      }
+    ],
+    "returns": "Returns the model.",
+    "description": "Adds an instrument to the track on the model.Parameter specified.",
+    "signature": "GroupTrack . addSound ( parameter , soundType , start , length )"
+  },
+  {
+    "module": "project-model-track",
+    "owner": "GroupBus",
+    "member": "getItem",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "path",
+        "optional": false,
+        "doc": "Relative path of the entity to get the model.MixerBus of."
+      }
+    ],
+    "returns": "Returns the model.",
+    "description": "Retrieves the mixer bus at the relative path specified.",
+    "signature": "GroupBus . getItem ( path )"
+  },
+  {
+    "module": "project-model-track",
+    "owner": "MarkerTrack",
+    "member": "addNamedMarker",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "name",
+        "optional": false,
+        "doc": "The string value to assign the marker when created."
+      },
+      {
+        "name": "position",
+        "optional": false,
+        "doc": "The numerical position to place marker."
+      }
+    ],
+    "returns": "Returns the named marker ManagedObject .",
+    "description": "Adds a destination marker to the marker track at the given position.",
+    "signature": "MarkerTrack . addNamedMarker ( name , position )"
+  },
+  {
+    "module": "project-model-track",
+    "owner": "MarkerTrack",
+    "member": "addRegion",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "position",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "length",
+        "optional": false,
+        "doc": "The numerical length of the new region."
+      },
+      {
+        "name": "name",
+        "optional": false,
+        "doc": "The string value to assign the new region."
+      },
+      {
+        "name": "loopMode",
+        "optional": false,
+        "doc": "A number representing the region's loop mode. Defaults to project.regionLoopMode.Looping if loopMode is undefined . The loop mode can be set by passing in a valid loopMode argument, as described by the Project.regionLoopMode enum."
+      }
+    ],
+    "returns": "Returns the newly created region's ManagedObject .",
+    "description": "Adds a destination region to the marker track at the given position with the given length.",
+    "signature": "MarkerTrack . addRegion ( position , length , name , loopMode )"
+  },
+  {
+    "module": "project-model-track",
+    "owner": "MarkerTrack",
+    "member": "addSustainPoint",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "position",
+        "optional": false,
+        "doc": "The numerical position to place the new sustain point at."
+      }
+    ],
+    "returns": "Returns the SustainPoint ManagedObject .",
+    "description": "Adds a sustain point to the track at the given position.",
+    "signature": "MarkerTrack . addSustainPoint ( position )"
+  },
+  {
+    "module": "project-model-track",
+    "owner": "MarkerTrack",
+    "member": "addTransitionMarker",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "position",
+        "optional": false,
+        "doc": "The numerical position to place the new transition marker at."
+      },
+      {
+        "name": "destination",
+        "optional": false,
+        "doc": "A ManagedObject of type NamedMarker or LoopRegion ."
+      }
+    ],
+    "returns": "Returns the newly created TransitionMarker ManagedObject .",
+    "description": "Adds a transition marker to the track at the given position.",
+    "signature": "MarkerTrack . addTransitionMarker ( position , destination )"
+  },
+  {
+    "module": "project-model-track",
+    "owner": "MarkerTrack",
+    "member": "addTransitionRegion",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "position",
+        "optional": false,
+        "doc": "The numerical position to place the new transition region at."
+      },
+      {
+        "name": "length",
+        "optional": false,
+        "doc": "The numerical length of the new transition region."
+      },
+      {
+        "name": "destination",
+        "optional": false,
+        "doc": "Either a NamedMarker or a LoopRegion ."
+      }
+    ],
+    "returns": "Returns the TransitionRegion ManagedObject .",
+    "description": "Adds a transition region to the track at the given position with the given length.",
+    "signature": "MarkerTrack . addTransitionRegion ( position , length , destination )"
+  },
+  {
+    "module": "project-model-triggerable",
+    "owner": "Triggerable",
+    "member": "addParameterCondition",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "instance",
+    "receiver": null,
+    "params": [
+      {
+        "name": "parameter",
+        "optional": false,
+        "doc": "Can be either a model.ParameterPreset or a model.GameParameter ."
+      },
+      {
+        "name": "min",
+        "optional": false,
+        "doc": "The minimum value of the parameter condition."
+      },
+      {
+        "name": "max",
+        "optional": false,
+        "doc": "The maximum value of the parameter condition."
+      }
+    ],
+    "returns": "Returns the parameter condition ManagedObject .",
+    "description": "Adds a parameter condition for a given parameter to a triggerable object.",
+    "signature": "Triggerable . addParameterCondition ( parameter , min , max )"
+  },
+  {
+    "module": "project-workspace",
+    "owner": "workspace",
+    "member": "addEvent",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project.workspace",
+    "params": [
+      {
+        "name": "name",
+        "optional": false,
+        "doc": "The string value to assign the new event."
+      },
+      {
+        "name": "withSpatializer",
+        "optional": false,
+        "doc": "A bool value determining whether to add an FMOD spatializer to the new event's master track ."
+      }
+    ],
+    "returns": "Returns the event's ManagedObject .",
+    "description": "Adds an event with the given name to the project .",
+    "signature": "workspace . addEvent ( name , withSpatializer )"
+  },
+  {
+    "module": "project-workspace",
+    "owner": "workspace",
+    "member": "addGameParameter",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project.workspace",
+    "params": [
+      {
+        "name": "parameterDefinition",
+        "optional": false,
+        "doc": "The object describing the parameter to add."
+      }
+    ],
+    "returns": "Returns the preset parameter ManagedObject .",
+    "description": "Adds a preset parameter to the project.",
+    "signature": "workspace . addGameParameter ( parameterDefinition )"
+  },
+  {
+    "module": "project-workspace",
+    "owner": "workspace",
+    "member": "addTag",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project.workspace",
+    "params": [
+      {
+        "name": "name",
+        "optional": false,
+        "doc": "name of tag to add."
+      }
+    ],
+    "returns": "Returns the tag ManagedObject .",
+    "description": "Adds a tag with the given name to the project .",
+    "signature": "workspace . addTag ( name )"
+  },
+  {
+    "module": "project-workspace",
+    "owner": "workspace",
+    "member": "createPlugin",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.project.workspace",
+    "params": [
+      {
+        "name": "identfier",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns the plug-in effect or plug-in instrument ManagedObject .",
+    "description": "Creates either a plug-in effect or a plug-in instrument .",
+    "signature": "workspace . createPlugin ( identfier )"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "require",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [],
+    "returns": "Returns the loaded js module object or null if unsuccessful.",
+    "description": "Loads a javascript file as a library. The fileName passed can be either a relative or absolute path. The file being loaded should contain a module. For example:",
+    "signature": "module . exports = { foobar : function () { // implementation }, };"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "backtrace",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [],
+    "returns": "Returns the callstack as an array of strings.",
+    "description": "Returns the callstack as an array of strings.",
+    "signature": "system.backtrace()"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "verbose",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Logs a verbose message.",
+    "signature": "system.verbose(msg)"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "print",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Logs a message.",
+    "signature": "system.print(msg)"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "warn",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Logs a warning.",
+    "signature": "system.warn(msg)"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "error",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Logs an error.",
+    "signature": "system.error(msg)"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "message",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Logs a message in a popup dialog (blocking).",
+    "signature": "system.message(msg)"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "question",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Prompts for a 'yes'/'no' response to a given message and returns a boolean value (blocking).",
+    "signature": "system.question(msg)"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "getText",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "defaultText",
+        "optional": true,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Prompts for text input and returns the string, or null if cancelled (blocking).",
+    "signature": "system.getText(msg[, defaultText])"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "getNumber",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "msg",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "defaultText",
+        "optional": true,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Prompts for numeric input and returns the value, or null if cancelled (blocking).",
+    "signature": "system.getNumber(msg[, defaultText])"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "start",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "pathToExecutable",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "processOptions",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns a result object { exitCode, standardOutput, standardError } .",
+    "description": "Runs an external process with options object { workingDir, args, timeout (milliseconds) } (blocking).",
+    "signature": "system.start(pathToExecutable, processOptions)"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "startAsync",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "pathToExecutable",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "processOptions",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns a studio.",
+    "description": "Runs an external asynchronous process with options object { workingDir, args } .",
+    "signature": "system.startAsync(pathToExecutable, processOptions)"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "readDir",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "filePath",
+        "optional": false,
+        "doc": ""
+      },
+      {
+        "name": "readDirFiltersFlag",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns a string array from the filters specified by readDirFiltersFlag from the filePath .",
+    "description": "Returns a string array from the filters specified by readDirFiltersFlag from the filePath . If readDirFiltersFlag is not defined in the function call, a default of system.readDirFilters.AllEntries will be used. The available options are described by the system.readDirFilters enum.",
+    "signature": "system.readDir(filePath, readDirFiltersFlag)"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "readDirFilters",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration used with studio.system.readDir(filePath, readDirFiltersFlag) to describe the filters in which a string array will be returned. The filter value is specified by combining values from the following list using the bitwise OR operator:",
+    "signature": "system.readDirFilters"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "getFile",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [
+      {
+        "name": "filePath",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns a studio.",
+    "description": "Returns a studio.system.File object representing the file at filePath .",
+    "signature": "system.getFile(filePath)"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "openMode",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration used with studio.system.File.open() to describe the mode in which a file is opened. Possible values are:",
+    "signature": "system.openMode"
+  },
+  {
+    "module": "system",
+    "owner": "system",
+    "member": "permission",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.system",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration used with studio.system.File.setPermissions() to alter the permissions of a file. The permissions of a file can be queried using studio.system.File.permissions . The values may be OR-ed together to test multiple permissions and ownership values. Possible values are:",
+    "signature": "system.permission"
+  },
+  {
+    "module": "ui",
+    "owner": "ui",
+    "member": "showModalDialog",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.ui",
+    "params": [
+      {
+        "name": "description",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Displays a dialog window. The function returns once the dialog has been closed.",
+    "signature": "ui.showModalDialog(description)"
+  },
+  {
+    "module": "ui",
+    "owner": "ui",
+    "member": "showModelessDialog",
+    "kind": "method",
+    "immutable": true,
+    "target_kind": "module",
+    "receiver": "studio.ui",
+    "params": [],
+    "returns": "Returns a sibling widget with the matching widgetId .",
+    "description": "Displays a dialog window. The function returns once the dialog is shown.",
+    "signature": "{ widgetType : ui . widgetType . PushButton , text : &quot;Show Alert&quot; , onClicked : function () { // displays an alert with the text of the button that was clicked alert ( &quot;The button&#39;s text is: &quot; ; + this . text ()); }, }"
+  },
+  {
+    "module": "ui",
+    "owner": "ui",
+    "member": "widgetType",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.ui",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration corresponding to different widget types available within a UI widget description. Possible values are:",
+    "signature": "ui.widgetType"
+  },
+  {
+    "module": "ui",
+    "owner": "ui",
+    "member": "layoutType",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.ui",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration corresponding to different layout types available within a UI widget description of widgetType.Layout . Possible values are:",
+    "signature": "ui.layoutType"
+  },
+  {
+    "module": "ui",
+    "owner": "ui",
+    "member": "alignment",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.ui",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration corresponding to the alignment of an item within a layout widget. Possible values are:",
+    "signature": "ui.alignment"
+  },
+  {
+    "module": "ui",
+    "owner": "ui",
+    "member": "sizePolicy",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.ui",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration corresponding to the size policy of a widget. This determines how much space it will try to consume within its layout, and how it will react when more or less space is made available.",
+    "signature": "ui.sizePolicy"
+  },
+  {
+    "module": "ui",
+    "owner": "ui",
+    "member": "orientation",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.ui",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration representing an orientation. Possible values are:",
+    "signature": "ui.orientation"
+  },
+  {
+    "module": "ui",
+    "owner": "ui",
+    "member": "echoMode",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.ui",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration corresponding to the echo mode of a LineEdit widget. This can be used to display asterisks instead of characters when entering a password. Possible values are:",
+    "signature": "ui.echoMode"
+  },
+  {
+    "module": "ui",
+    "owner": "ui",
+    "member": "pathType",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.ui",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration corresponding to the different path types the PathLineEdit supports. This controls the behavior of browser dialog presented. Possible values are:",
+    "signature": "ui.pathType"
+  },
+  {
+    "module": "window",
+    "owner": "window",
+    "member": "open",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.window",
+    "params": [
+      {
+        "name": "windowType",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns true if the window request is valid, or false otherwise.",
+    "description": "Opens a new window of the given window type (e.g. \"Event Editor\").",
+    "signature": "window.open(windowType)"
+  },
+  {
+    "module": "window",
+    "owner": "window",
+    "member": "navigateTo",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.window",
+    "params": [
+      {
+        "name": "managedObject",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns true if successful.",
+    "description": "Attempts to navigate to a ManagedObject in the UI. Will open a new window if required. Returns true if successful.",
+    "signature": "window.navigateTo(managedObject)"
+  },
+  {
+    "module": "window",
+    "owner": "window",
+    "member": "browserCurrent",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.window",
+    "params": [
+      {
+        "name": "tabName",
+        "optional": true,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns the currently selected ManagedObject in the active browser tab of the last active window.",
+    "description": "Returns the currently selected ManagedObject in the active browser tab of the last active window. A tabName can optionally be specified to select from a different browser tab.",
+    "signature": "window.browserCurrent([tabName])"
+  },
+  {
+    "module": "window",
+    "owner": "window",
+    "member": "browserSelection",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.window",
+    "params": [
+      {
+        "name": "tabName",
+        "optional": true,
+        "doc": ""
+      }
+    ],
+    "returns": "Returns an Array of selected ManagedObject s in the active browser tab of the last active window.",
+    "description": "Returns an Array of selected ManagedObject s in the active browser tab of the last active window. A tabName can optionally be specified to select from a different browser tab.",
+    "signature": "window.browserSelection([tabName])"
+  },
+  {
+    "module": "window",
+    "owner": "window",
+    "member": "editorCurrent",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.window",
+    "params": [],
+    "returns": "Returns the currently selected ManagedObject in the last active editor (e.",
+    "description": "Returns the currently selected ManagedObject in the last active editor (e.g. in the multitrack view).",
+    "signature": "window.editorCurrent()"
+  },
+  {
+    "module": "window",
+    "owner": "window",
+    "member": "editorSelection",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.window",
+    "params": [],
+    "returns": "Returns an array of selected ManagedObject s in the last active editor (e.",
+    "description": "Returns an array of selected ManagedObject s in the last active editor (e.g. in the multitrack view).",
+    "signature": "window.editorSelection()"
+  },
+  {
+    "module": "window",
+    "owner": "window",
+    "member": "deckCurrent",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.window",
+    "params": [],
+    "returns": "Returns the currently selected ManagedObject in the deck of the last active window.",
+    "description": "Returns the currently selected ManagedObject in the deck of the last active window.",
+    "signature": "window.deckCurrent()"
+  },
+  {
+    "module": "window",
+    "owner": "window",
+    "member": "deckSelection",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.window",
+    "params": [],
+    "returns": "Returns an array of selected ManagedObject s in the deck of the last active window.",
+    "description": "Returns an array of selected ManagedObject s in the deck of the last active window.",
+    "signature": "window.deckSelection()"
+  },
+  {
+    "module": "window",
+    "owner": "window",
+    "member": "actions",
+    "kind": "property",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.window",
+    "params": [],
+    "returns": "",
+    "description": "An enumeration used with studio.window.triggerAction() to trigger the execution of an action. Possible values are:",
+    "signature": "window.actions"
+  },
+  {
+    "module": "window",
+    "owner": "window",
+    "member": "triggerAction",
+    "kind": "method",
+    "immutable": false,
+    "target_kind": "module",
+    "receiver": "studio.window",
+    "params": [
+      {
+        "name": "actionType",
+        "optional": false,
+        "doc": ""
+      }
+    ],
+    "returns": "",
+    "description": "Attempts to trigger the actionType action for the last active window. The available options are described by the window.actions enum.",
+    "signature": "window.triggerAction(actionType)"
+  }
+]

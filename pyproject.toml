@@ -29,3 +29,6 @@ fmod-studio-mcp = "fmod_studio_mcp:run_server"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["fmod_studio_mcp*"]
+
+[tool.setuptools.package-data]
+fmod_studio_mcp = ["api_spec.json"]

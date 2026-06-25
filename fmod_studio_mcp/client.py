@@ -19,6 +19,16 @@ import time
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 3663
 
+# The terminal echoes an evaluated expression's value prefixed with "out(): "
+# (and runtime errors with "error(): "). Strip the success prefix so callers get
+# the bare value; leave the error prefix intact as a signal.
+_OUT_PREFIX = "out(): "
+
+
+def strip_reply_prefix(reply: str) -> str:
+    """Drop the leading ``out(): `` the scripting terminal prepends to results."""
+    return reply[len(_OUT_PREFIX):] if reply.startswith(_OUT_PREFIX) else reply
+
 
 class FmodTerminalError(RuntimeError):
     """Raised when the scripting terminal can't be reached or a call fails."""
@@ -95,4 +105,4 @@ class FmodTerminal:
             self.close()
             self.connect()
             self._sock.sendall(payload)  # type: ignore[union-attr]
-        return self._read_until_idle(idle=idle, overall=overall).strip()
+        return strip_reply_prefix(self._read_until_idle(idle=idle, overall=overall).strip())

@@ -1,13 +1,15 @@
-"""fmod-studio-mcp — an MCP server that drives FMOD Studio live via its
-scripting terminal (TCP, default 127.0.0.1:3663).
+"""fmod-studio-mcp — an MCP server that drives FMOD Studio live via its scripting
+terminal (TCP, default 127.0.0.1:3663).
 
-Design:
-  * `fmod_run_script` / `fmod_eval` expose the **entire** FMOD Studio Scripting
-    API (anything you can type in the console), so nothing is out of reach.
-  * Introspection tools (`fmod_class_names`, `fmod_dump`) make that API
-    discoverable at runtime.
-  * Ergonomic wrappers (`fmod_create_event`, `fmod_import_audio`, `fmod_create`,
-    `fmod_lookup`, `fmod_build`, `fmod_save`, …) generate the JS for common ops.
+The server exposes the FMOD Studio Scripting API as **one tool per API member**,
+generated from the crawled reference (``api_spec.json`` via :mod:`generation`). On
+top of those it adds a small set of *generic* tools that reach the parts of the API
+the static reference can't enumerate — the project-schema-defined managed properties
+and relationships (e.g. an instrument's ``audioFile``, an event's ``timeline``) — plus
+class introspection and a ``create_event`` composite for the common authoring path.
+
+There is intentionally **no arbitrary-script / eval tool**: every capability is a
+named, schema-validated operation over FMOD's object model.
 
 Config via env: FMOD_STUDIO_HOST (default 127.0.0.1), FMOD_STUDIO_PORT (3663).
 """
@@ -23,6 +25,7 @@ from mcp.server.stdio import stdio_server
 from mcp import types
 
 from .client import FmodTerminal, FmodTerminalError
+from .generation import GeneratedTool, build_generated_tools, embed_value, _DESC
 
 HOST = os.environ.get("FMOD_STUDIO_HOST", "127.0.0.1")
 PORT = int(os.environ.get("FMOD_STUDIO_PORT", "3663"))
@@ -31,9 +34,8 @@ app = Server("fmod-studio-mcp")
 TERMINAL = FmodTerminal(HOST, PORT)
 
 
-def _q(value: str) -> str:
-    """JSON-encode a string for safe embedding in generated JavaScript."""
-    return json.dumps(value)
+def _q(value) -> str:
+    return json.dumps(str(value))
 
 
 def _run(script: str, overall: float = 30.0) -> str:
@@ -45,15 +47,116 @@ def _run(script: str, overall: float = 30.0) -> str:
 
 
 # ---------------------------------------------------------------------------
-# JS builders for the high-level wrappers
+# Generated tools — one per documented API member
 # ---------------------------------------------------------------------------
 
-def _js_create_event(name: str, sound: str | None, bank_name: str | None,
-                     folder_path: str | None) -> str:
-    lines = [
-        "var __ev = studio.project.create('Event');",
-        f"__ev.name = {_q(name)};",
+_GENERATED: dict[str, GeneratedTool] = {gt.name: gt for gt in build_generated_tools()}
+
+
+def _run_generated(gt: GeneratedTool, args: dict) -> str:
+    # build() can take a while; give bank builds a generous window.
+    overall = 180.0 if gt.spec["member"].lower().startswith("build") else 30.0
+    return _run(gt.build_js(args), overall=overall)
+
+
+# ---------------------------------------------------------------------------
+# Generic managed-object tools — reach the dynamic, schema-defined members the
+# static reference doesn't list (an object's per-class properties/relationships).
+# ---------------------------------------------------------------------------
+
+def _generic_tools() -> list[types.Tool]:
+    obj = {"target": {"type": "string",
+                      "description": "Object path ('event:/SFX/Hit', 'bank:/Master') or '{guid}'."}}
+    return [
+        types.Tool(
+            name="fmod_get_property",
+            description="Read any property of an object — including dynamic, per-class managed "
+                        "properties not in the static reference (e.g. an event's 'timeline').",
+            inputSchema={"type": "object", "required": ["target", "property"],
+                         "properties": {**obj, "property": {"type": "string"}}},
+        ),
+        types.Tool(
+            name="fmod_set_property",
+            description="Set any property of an object (e.g. instrument 'audioFile' = an asset, or "
+                        "'name'). Value is auto-embedded: numbers/booleans as literals, a path or "
+                        "'{guid}' as an object reference, else a string.",
+            inputSchema={"type": "object", "required": ["target", "property", "value"],
+                         "properties": {**obj, "property": {"type": "string"},
+                                        "value": {"type": ["string", "number", "boolean"]}}},
+        ),
+        types.Tool(
+            name="fmod_add_relationship",
+            description="Add an object to one of a target's relationships, e.g. relationship 'banks' "
+                        "on an event -> a 'bank:/...'. (target.relationships[name].add(other))",
+            inputSchema={"type": "object", "required": ["target", "relationship", "other"],
+                         "properties": {**obj, "relationship": {"type": "string"},
+                                        "other": {"type": "string", "description": "Path or '{guid}'."}}},
+        ),
+        types.Tool(
+            name="fmod_remove_relationship",
+            description="Remove an object from one of a target's relationships. "
+                        "(target.relationships[name].remove(other))",
+            inputSchema={"type": "object", "required": ["target", "relationship", "other"],
+                         "properties": {**obj, "relationship": {"type": "string"},
+                                        "other": {"type": "string", "description": "Path or '{guid}'."}}},
+        ),
+        types.Tool(
+            name="fmod_class_names",
+            description="List the project model's class/entity names (introspection: keys of studio.project.model).",
+            inputSchema={"type": "object", "properties": {}},
+        ),
+        types.Tool(
+            name="fmod_describe_class",
+            description="List a class's schema-defined property and relationship names — how to discover the "
+                        "dynamic members (use with fmod_get_property/fmod_set_property/fmod_add_relationship).",
+            inputSchema={"type": "object", "required": ["className"],
+                         "properties": {"className": {"type": "string", "description": "e.g. 'Event', 'SingleSound'."}}},
+        ),
+        types.Tool(
+            name="fmod_create_event",
+            description="Composite: create an event, optionally import a one-shot sound onto a new audio track "
+                        "and assign the event to a bank. Equivalent to a create + importAudioFile + addGroupTrack "
+                        "+ addSound + set audioFile + add bank relationship.",
+            inputSchema={"type": "object", "required": ["name"], "properties": {
+                "name": {"type": "string"},
+                "sound": {"type": "string", "description": "Absolute path to an audio file to place as a one-shot."},
+                "bank_name": {"type": "string", "description": "Bank to assign to, e.g. 'Master'. Omit to skip."},
+                "folder_path": {"type": "string", "description": "Existing folder lookup path, e.g. 'event:/SFX'."},
+            }},
+        ),
     ]
+
+
+def _generic_dispatch(name: str, a: dict) -> str:
+    if name == "fmod_get_property":
+        return _run(f"{_DESC} var __o = studio.project.lookup({_q(a['target'])}); "
+                    f"__o ? __desc(__o[{_q(a['property'])}]) : 'not found';")
+    if name == "fmod_set_property":
+        return _run(f"var __o = studio.project.lookup({_q(a['target'])}); "
+                    f"if (!__o) 'not found'; else {{ __o[{_q(a['property'])}] = {embed_value(a['value'])}; "
+                    f"'set ' + {_q(a['property'])}; }}")
+    if name in ("fmod_add_relationship", "fmod_remove_relationship"):
+        op = "add" if name.endswith("add_relationship") else "remove"
+        return _run(f"var __o = studio.project.lookup({_q(a['target'])}); "
+                    f"var __x = studio.project.lookup({_q(a['other'])}); "
+                    f"if (!__o || !__x) 'not found'; else {{ __o.relationships[{_q(a['relationship'])}].{op}(__x); "
+                    f"'{op}ed'; }}")
+    if name == "fmod_class_names":
+        return _run("JSON.stringify(Object.keys(studio.project.model).sort());")
+    if name == "fmod_describe_class":
+        return _run(
+            f"var __e = studio.project.model[{_q(a['className'])}]; "
+            "__e ? JSON.stringify({"
+            "properties: Object.keys(__e.properties), "
+            "relationships: Object.keys(__e.relationships)"
+            "}, null, 1) : 'unknown class';")
+    if name == "fmod_create_event":
+        return _run(_js_create_event(a["name"], a.get("sound"), a.get("bank_name"), a.get("folder_path")))
+    return f"ERROR: unknown tool {name}"
+
+
+def _js_create_event(name: str, sound, bank_name, folder_path) -> str:
+    lines = ["var __ev = studio.project.create('Event');", f"__ev.name = {_q(name)};"]
     if folder_path:
         lines.append(f"var __f = studio.project.lookup({_q(folder_path)}); if (__f) __ev.folder = __f;")
     if sound:
@@ -64,168 +167,29 @@ def _js_create_event(name: str, sound: str | None, bank_name: str | None,
             "__inst.audioFile = __asset;",
         ]
     if bank_name:
-        lines += [
-            f"var __bank = studio.project.lookup('bank:/' + {_q(bank_name)});",
-            "if (__bank) { __ev.relationships.banks.add(__bank); }",
-        ]
+        lines += [f"var __bank = studio.project.lookup('bank:/' + {_q(bank_name)});",
+                  "if (__bank) { __ev.relationships.banks.add(__bank); }"]
     lines.append("'created ' + __ev.getPath() + ' (' + __ev.id + ')';")
     return "\n".join(lines)
 
 
 # ---------------------------------------------------------------------------
-# Tool registry
+# MCP wiring
 # ---------------------------------------------------------------------------
 
 @app.list_tools()
 async def list_tools() -> list[types.Tool]:
-    return [
-        types.Tool(
-            name="fmod_run_script",
-            description=(
-                "Run arbitrary FMOD Studio Scripting API JavaScript in the live Studio and return "
-                "its terminal output. This is the full-power escape hatch — the entire scripting API "
-                "is reachable (studio.project, studio.system, ManagedObjects, etc.). End with an "
-                "expression to echo a result."
-            ),
-            inputSchema={
-                "type": "object",
-                "required": ["script"],
-                "properties": {
-                    "script": {"type": "string", "description": "JavaScript to evaluate in FMOD Studio."},
-                    "timeout": {"type": "number", "description": "Max seconds to wait for output (default 30; raise for build())."},
-                },
-            },
-        ),
-        types.Tool(
-            name="fmod_eval",
-            description="Evaluate a single JS expression and return its value (convenience over run_script).",
-            inputSchema={
-                "type": "object",
-                "required": ["expression"],
-                "properties": {"expression": {"type": "string"}},
-            },
-        ),
-        types.Tool(
-            name="fmod_project_info",
-            description="Report whether a project is open and its file path.",
-            inputSchema={"type": "object", "properties": {}},
-        ),
-        types.Tool(
-            name="fmod_save",
-            description="Save the FMOD Studio project (studio.project.save()).",
-            inputSchema={"type": "object", "properties": {}},
-        ),
-        types.Tool(
-            name="fmod_build",
-            description="Build the project's banks (studio.project.build()). May take a while.",
-            inputSchema={"type": "object", "properties": {}},
-        ),
-        types.Tool(
-            name="fmod_class_names",
-            description="List the scripting API's managed class names (introspection: studio.system.getClassNames()).",
-            inputSchema={"type": "object", "properties": {}},
-        ),
-        types.Tool(
-            name="fmod_lookup",
-            description="Look up an object by path or GUID (e.g. 'event:/SFX/Hit', 'bank:/Master') and report its path + id.",
-            inputSchema={
-                "type": "object",
-                "required": ["path"],
-                "properties": {"path": {"type": "string", "description": "Lookup path or {guid}."}},
-            },
-        ),
-        types.Tool(
-            name="fmod_dump",
-            description="Dump an object's properties + relationships (object.dump()) by path or GUID.",
-            inputSchema={
-                "type": "object",
-                "required": ["path"],
-                "properties": {"path": {"type": "string"}},
-            },
-        ),
-        types.Tool(
-            name="fmod_create",
-            description="Create a managed object of a class (studio.project.create(class)) and optionally set its name.",
-            inputSchema={
-                "type": "object",
-                "required": ["class_name"],
-                "properties": {
-                    "class_name": {"type": "string", "description": "e.g. 'Event', 'Bank', 'EventFolder'."},
-                    "name": {"type": "string", "description": "Optional name to set."},
-                },
-            },
-        ),
-        types.Tool(
-            name="fmod_import_audio",
-            description="Import an audio file into the project (studio.project.importAudioFile(path)); returns the asset path/id.",
-            inputSchema={
-                "type": "object",
-                "required": ["path"],
-                "properties": {"path": {"type": "string", "description": "Absolute path to the .wav/.ogg/etc."}},
-            },
-        ),
-        types.Tool(
-            name="fmod_create_event",
-            description=(
-                "Create an event in the live project, optionally importing a sound onto a single "
-                "instrument and assigning it to a bank. Generates the scripting-API calls "
-                "(create → name → addGroupTrack → addSound → importAudioFile → relationships.banks.add)."
-            ),
-            inputSchema={
-                "type": "object",
-                "required": ["name"],
-                "properties": {
-                    "name": {"type": "string"},
-                    "sound": {"type": "string", "description": "Absolute path to an audio file to place as a one-shot."},
-                    "bank_name": {"type": "string", "description": "Bank to assign to, e.g. 'Master'. Omit to skip."},
-                    "folder_path": {"type": "string", "description": "Existing folder lookup path, e.g. 'event:/SFX'."},
-                },
-            },
-        ),
-    ]
+    return _generic_tools() + [gt.tool() for gt in _GENERATED.values()]
 
 
 @app.call_tool()
 async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
-    text = _dispatch(name, arguments or {})
+    args = arguments or {}
+    if name in _GENERATED:
+        text = _run_generated(_GENERATED[name], args)
+    else:
+        text = _generic_dispatch(name, args)
     return [types.TextContent(type="text", text=text)]
-
-
-def _dispatch(name: str, args: dict) -> str:
-    match name:
-        case "fmod_run_script":
-            return _run(args["script"], overall=float(args.get("timeout", 30)))
-        case "fmod_eval":
-            return _run(f"({args['expression']});")
-        case "fmod_project_info":
-            return _run("'open=' + studio.project.isOpen + ' path=' + studio.project.filePath;")
-        case "fmod_save":
-            return _run("studio.project.save(); 'saved';")
-        case "fmod_build":
-            return _run("studio.project.build(); 'build complete';", overall=180.0)
-        case "fmod_class_names":
-            return _run("JSON.stringify(studio.system.getClassNames());")
-        case "fmod_lookup":
-            return _run(
-                f"var __o = studio.project.lookup({_q(args['path'])}); "
-                "__o ? (__o.getPath() + ' (' + __o.id + ')') : 'not found';"
-            )
-        case "fmod_dump":
-            return _run(f"var __o = studio.project.lookup({_q(args['path'])}); __o ? __o.dump() : 'not found';")
-        case "fmod_create":
-            nm = args.get("name")
-            js = f"var __o = studio.project.create({_q(args['class_name'])});"
-            if nm:
-                js += f" __o.name = {_q(nm)};"
-            js += " __o.id;"
-            return _run(js)
-        case "fmod_import_audio":
-            return _run(f"var __a = studio.project.importAudioFile({_q(args['path'])}); __a ? __a.id : 'failed';")
-        case "fmod_create_event":
-            return _run(_js_create_event(
-                args["name"], args.get("sound"), args.get("bank_name"), args.get("folder_path")))
-        case _:
-            return f"ERROR: unknown tool {name}"
 
 
 async def main() -> None:

@@ -144,3 +144,7 @@ Built this in the open. If it saved you time, a one-off tip keeps it maintained:
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+---
+
+<sub><b>Keywords:</b> FMOD Studio MCP server · FMOD scripting API automation · AI game-audio tooling · Model Context Protocol server for FMOD · Claude / LLM game-audio agent · programmatic FMOD Studio control · game sound-design automation.</sub>

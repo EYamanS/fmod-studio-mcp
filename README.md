@@ -77,6 +77,14 @@ Or add it to any MCP client's config (stdio):
 "fmod-studio": { "command": "uvx", "args": ["fmod-studio-mcp"] }
 ```
 
+Prefer a persistent install over on-demand? Install the package directly:
+
+```bash
+uv tool install fmod-studio-mcp   # exposes the `fmod-studio-mcp` command
+# or, with pip:
+pip install fmod-studio-mcp
+```
+
 Configure host/port if needed via env: `FMOD_STUDIO_HOST` (default `127.0.0.1`),
 `FMOD_STUDIO_PORT` (default `3663`).
 

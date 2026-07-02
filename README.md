@@ -1,5 +1,8 @@
 # fmod-studio-mcp
 
+[![PyPI](https://img.shields.io/pypi/v/fmod-studio-mcp?color=3775A9&logo=pypi&logoColor=white)](https://pypi.org/project/fmod-studio-mcp/)
+[![Buy me a coffee](https://img.shields.io/badge/%E2%98%95%20Buy%20me%20a%20coffee-support-FF813F)](https://buy.polar.sh/polar_cl_v4ZIuYffdbN9E9iVLmlHh1W5sxAmxvqNVqIn81048FX)
+
 An [MCP](https://modelcontextprotocol.io) server that drives **FMOD Studio live**
 through its built-in **scripting terminal** (TCP, default `127.0.0.1:3663`). Unlike
 file-based approaches that edit a project's XML on disk (and require closing/reopening
@@ -131,6 +134,12 @@ fmod_project_save            {}
 - Edits the **live** project. Run `fmod_project_save` to persist; commit the project to git.
 - Avoid editing the same project in the Studio GUI and via this server simultaneously in
   conflicting ways.
+
+## Support
+
+Built this in the open. If it saved you time, a one-off tip keeps it maintained:
+
+[![Buy me a coffee](https://img.shields.io/badge/%E2%98%95%20Buy%20me%20a%20coffee-support%20this%20project-FF813F?style=for-the-badge)](https://buy.polar.sh/polar_cl_v4ZIuYffdbN9E9iVLmlHh1W5sxAmxvqNVqIn81048FX)
 
 ## License
 

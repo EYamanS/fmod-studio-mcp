@@ -64,20 +64,30 @@ string. Settable properties take an optional `value` (omit to read).
 
 ## Install
 
+Run it straight from PyPI with [uv](https://docs.astral.sh/uv/) — no clone, no venv.
+`uvx` downloads and launches it on demand:
+
 ```bash
-git clone https://github.com/EYamanS/fmod-studio-mcp
-cd fmod-studio-mcp
-python3 -m venv .venv && ./.venv/bin/pip install -e .
+claude mcp add fmod-studio -- uvx fmod-studio-mcp
 ```
 
-Add it to Claude Code (stdio):
+Or add it to any MCP client's config (stdio):
 
-```bash
-claude mcp add fmod-studio -- "$(pwd)/.venv/bin/python" -m fmod_studio_mcp
+```jsonc
+"fmod-studio": { "command": "uvx", "args": ["fmod-studio-mcp"] }
 ```
 
 Configure host/port if needed via env: `FMOD_STUDIO_HOST` (default `127.0.0.1`),
 `FMOD_STUDIO_PORT` (default `3663`).
+
+### From source (development)
+
+```bash
+git clone https://github.com/EYamanS/fmod-studio-mcp
+cd fmod-studio-mcp
+python3 -m venv .venv && ./.venv/bin/pip install -e .
+claude mcp add fmod-studio -- "$(pwd)/.venv/bin/python" -m fmod_studio_mcp
+```
 
 ## Regenerating for a new FMOD version
 

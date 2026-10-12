@@ -47,8 +47,19 @@ PARAM_DT = re.compile(r"<dt[^>]*>(.*?)</dt>\s*<dd[^>]*>(.*?)</dd>", re.S)
 
 
 def fetch(slug):
-    return subprocess.run(["curl", "-sL", "-A", "Mozilla/5.0", BASE.format(slug)],
-                          capture_output=True, text=True, timeout=30).stdout
+    """Fetch one page of the reference.
+
+    Raises if the page could not be retrieved. ``--fail`` matters here: without
+    it curl exits 0 on an HTTP error, so a mistyped slug would return the CDN's
+    404 page, parse to zero members, and quietly drop tools from the spec.
+    """
+    url = BASE.format(slug)
+    proc = subprocess.run(["curl", "-sL", "--fail", "-A", "Mozilla/5.0", url],
+                          capture_output=True, text=True, timeout=30)
+    if proc.returncode != 0:
+        raise RuntimeError(f"Could not fetch {slug!r} from {url}: "
+                           f"curl exited {proc.returncode}: {proc.stderr.strip()}")
+    return proc.stdout
 
 
 def text_of(html):
@@ -111,7 +122,8 @@ def main():
             sig_text = text_of(pre.group(1)) if pre else title
             # A method's signature shows "(...)"; a property accessor never does.
             kind = "method" if "(" in sig_text else "property"
-            immutable = "Immutable." in text_of(block)
+            block_text = text_of(block)
+            immutable = "Immutable." in block_text
             params = parse_params(sig_text) if kind == "method" else []
 
             docs = {re.sub(r"[^A-Za-z0-9_]", "", text_of(dt)): text_of(dd)
@@ -121,7 +133,7 @@ def main():
 
             pm = re.search(r"<p[^>]*>(.*?)</p>", block, re.S)
             desc = text_of(pm.group(1)) if pm else ""
-            rm = re.search(r"Returns?\b([^.]*\.)", text_of(block))
+            rm = re.search(r"Returns?\b([^.]*\.)", block_text)
             ret = ("Returns" + rm.group(1)).strip() if rm else ""
 
             if owner == "":

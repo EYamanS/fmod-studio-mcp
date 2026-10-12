@@ -1,8 +1,6 @@
 """Entry point for `python -m fmod_studio_mcp`."""
 
-import asyncio
-
-from .server import main
+from . import run_server
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    run_server()

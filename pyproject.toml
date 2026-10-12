@@ -17,7 +17,21 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Topic :: Multimedia :: Sound/Audio",
 ]
-dependencies = ["mcp>=1.0.0"]
+# Both bounds are load-bearing.
+#
+# <2: mcp 2.x removed the Server.list_tools / Server.call_tool decorators this
+# server is built on, so the server cannot even import.
+#
+# >=1.19: our call_tool returns a types.CallToolResult. Older versions do not
+# recognise that type; they fall through to `list(results)` and build
+# CallToolResult(content=...), which turns the pydantic model into a list of
+# (field, value) tuples and fails validation on every single call. It also
+# hardcodes isError=False there, losing the failure flag. The isinstance check
+# that recognises CallToolResult first appears in 1.19.0.
+dependencies = ["mcp>=1.19.0,<2"]
+
+[dependency-groups]
+dev = ["pytest>=8"]
 
 [project.urls]
 Repository = "https://github.com/EYamanS/fmod-studio-mcp"
